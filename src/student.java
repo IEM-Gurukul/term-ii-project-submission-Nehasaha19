@@ -20,12 +20,12 @@ public class Student {
         return name;
     }
 
-    // Add attendance record
+    // Mark attendance
     public void markAttendance(String date, String status) {
         attendance.add(date + ":" + status);
     }
 
-    // Show all attendance
+    // Show all attendance records
     public void showAttendance() {
         System.out.println("Attendance for " + name + ":");
         if (attendance.isEmpty()) {
@@ -35,5 +35,21 @@ public class Student {
                 System.out.println(record);
             }
         }
+    }
+
+    // Show attendance summary
+    public void showAttendanceSummary() {
+        int present = 0, absent = 0, late = 0;
+
+        for (String record : attendance) {
+            if (record.endsWith("Present")) present++;
+            else if (record.endsWith("Absent")) absent++;
+            else if (record.endsWith("Late")) late++;
+        }
+
+        System.out.println("Attendance summary for " + name + ":");
+        System.out.println("Present: " + present);
+        System.out.println("Absent: " + absent);
+        System.out.println("Late: " + late);
     }
 }
