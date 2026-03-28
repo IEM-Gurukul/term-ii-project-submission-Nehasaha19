@@ -1,3 +1,5 @@
+package src; // optional, only if using packages
+
 public class Student {
 
     private String name;
@@ -9,24 +11,27 @@ public class Student {
         this.age = age;
     }
 
-    // Getter for name
+    // Getter methods
     public String getName() {
         return name;
     }
 
-    // Getter for age
     public int getAge() {
         return age;
+    }
+
+    // Setter methods
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     // Display student details
     public void displayInfo() {
         System.out.println("Name: " + name);
         System.out.println("Age: " + age);
-    }
-
-    public static void main(String[] args) {
-        Student student1 = new Student("John Doe", 20);
-        student1.displayInfo();
     }
 }
