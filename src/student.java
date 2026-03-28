@@ -1,37 +1,39 @@
-package src; // optional, only if using packages
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
-
+    private int id;
     private String name;
-    private int age;
+    private List<String> attendance; // Stores "date:status"
 
-    // Constructor
-    public Student(String name, int age) {
+    public Student(int id, String name) {
+        this.id = id;
         this.name = name;
-        this.age = age;
+        this.attendance = new ArrayList<>();
     }
 
-    // Getter methods
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public int getAge() {
-        return age;
+    // Add attendance record
+    public void markAttendance(String date, String status) {
+        attendance.add(date + ":" + status);
     }
 
-    // Setter methods
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    // Display student details
-    public void displayInfo() {
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
+    // Show all attendance
+    public void showAttendance() {
+        System.out.println("Attendance for " + name + ":");
+        if (attendance.isEmpty()) {
+            System.out.println("No attendance records found.");
+        } else {
+            for (String record : attendance) {
+                System.out.println(record);
+            }
+        }
     }
 }

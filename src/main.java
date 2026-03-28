@@ -1,62 +1,49 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Student student1 = new Student(1, "Alice");
+        Student student2 = new Student(2, "Bob");
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Student> students = new ArrayList<>();
 
-        int choice;
-
-        do {
-            System.out.println("\n1. Add Student");
-            System.out.println("2. View Students");
-            System.out.println("3. Search Student");
-            System.out.println("4. Delete Student");
-            System.out.println("5. Exit");
+        while (true) {
+            System.out.println("\n1. Mark Attendance");
+            System.out.println("2. Show Attendance");
+            System.out.println("3. Exit");
             System.out.print("Enter choice: ");
-            choice = sc.nextInt();
-            sc.nextLine();
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume newline
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter name: ");
-                    String name = sc.nextLine();
+            if (choice == 1) {
+                System.out.print("Enter student ID: ");
+                int id = sc.nextInt();
+                sc.nextLine();
+                System.out.print("Enter date (YYYY-MM-DD): ");
+                String date = sc.nextLine();
+                System.out.print("Enter status (Present/Absent/Late): ");
+                String status = sc.nextLine();
 
-                    System.out.print("Enter age: ");
-                    int age = sc.nextInt();
+                if (id == 1) student1.markAttendance(date, status);
+                else if (id == 2) student2.markAttendance(date, status);
+                else System.out.println("Student not found.");
 
-                    students.add(new Student(name, age));
-                    System.out.println("Student added!");
-                    break;
+            } else if (choice == 2) {
+                System.out.print("Enter student ID: ");
+                int id = sc.nextInt();
+                if (id == 1) student1.showAttendance();
+                else if (id == 2) student2.showAttendance();
+                else System.out.println("Student not found.");
 
-                case 2:
-                    System.out.println("\nStudent List:");
-                    for (Student s : students) {
-                        s.displayInfo();
-                        System.out.println("-----------");
-                    }
-                    break;
+            } else if (choice == 3) {
+                System.out.println("Exiting...");
+                break;
 
-                case 3:
-                    System.out.print("Enter name to search: ");
-                    String searchName = sc.nextLine();
-                    boolean found = false;
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
 
-                    for (Student s : students) {
-                        if (s.getName().equalsIgnoreCase(searchName)) {
-                            s.displayInfo();
-                            found = true;
-                        }
-                    }
-
-                    if (!found) {
-                        System.out.println("Student not found!");
-                    }
-                    break;
-
-                case 4:
-                    System.out.print("Enter name to delete: ");
-                    String deleteName = sc.nextLine();
-
+        sc.close();
+    }
+}
