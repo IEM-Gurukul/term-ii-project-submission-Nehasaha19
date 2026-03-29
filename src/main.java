@@ -1,10 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 
     public static void main(String[] args) {
         ArrayList<Student> students = new ArrayList<>();
+
+        // Load data from file at program start
+        loadData(students);
+
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -78,13 +83,52 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Exiting...");
+                    // Save data before exiting
+                    saveData(students);
+                    System.out.println("Data saved. Exiting...");
                     sc.close();
                     return;
 
                 default:
                     System.out.println("Invalid choice! Try again.");
             }
+        }
+    }
+
+    // Save student data to file
+    public static void saveData(ArrayList<Student> students) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("students.txt"))) {
+            for (Student s : students) {
+                pw.println(s.getId() + "," + s.getName() + "," + s.getAttendedClasses() + "," + s.getTotalClasses());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+
+    // Load student data from file
+    public static void loadData(ArrayList<Student> students) {
+        File f = new File("students.txt");
+        if (!f.exists()) return;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    int id = Integer.parseInt(parts[0]);
+                    String name = parts[1];
+                    int attended = Integer.parseInt(parts[2]);
+                    int total = Integer.parseInt(parts[3]);
+                    Student s = new Student(id, name);
+                    for (int i = 0; i < total; i++) {
+                        s.markAttendance(i < attended); // first `attended` classes marked present
+                    }
+                    students.add(s);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading data: " + e.getMessage());
         }
     }
 }
