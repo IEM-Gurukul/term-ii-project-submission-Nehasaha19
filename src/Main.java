@@ -8,7 +8,9 @@ public class Main {
         ArrayList<Student> students = new ArrayList<>();
         loadData(students); // Load persisted student data
 
-        System.out.println("Welcome!"); // harmless addition for 9th commit
+        // Welcome messages
+        System.out.println("Welcome to the Student Attendance Management System!");
+        System.out.println("10th commit active!"); // harmless addition
 
         Scanner sc = new Scanner(System.in);
 
